@@ -1,7 +1,6 @@
 package com.johnremboo.timetest;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 public class App {
 

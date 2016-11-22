@@ -37,7 +37,7 @@ class TimeManager {
     /**
      * Time periods
      */
-    private enum Time {
+    enum Time {
         MORNING,
         DAY,
         EVENING,

@@ -1,0 +1,1 @@
+23-11-2016 02:08:20 ERROR com.johnremboo.timetest.MessageCreator:30 - Invalid hour. Value: 24 Valid values: from 0 to 23
