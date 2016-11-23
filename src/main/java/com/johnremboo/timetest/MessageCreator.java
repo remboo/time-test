@@ -25,15 +25,15 @@ class MessageCreator {
      *
      * @param hour - input hour value
      */
-    static void createWelcomeMessage(int hour) {
+    static String createWelcomeMessage(int hour) {
         if (!TimeManager.isTimeValid(hour)) {
             logger.error("Invalid hour. Value: " + hour + " Valid values: from 0 to 23");
-            return;
+            return null;
         }
 
         String time = TimeManager.getTimeName(hour);
         String[] params = {time, "world"};
-        createMessage(params);
+        return createMessage(params);
     }
 
     /**
@@ -41,13 +41,11 @@ class MessageCreator {
      *
      * @param values - parameters of the message
      */
-    private static void createMessage(String... values) {
-        StringBuilder message = new StringBuilder();
-        message.append(ResourceBundle.getBundle(resourceBundle, Locale.getDefault()).getString(values[0]))
-                .append(", ")
-                .append(ResourceBundle.getBundle(resourceBundle, Locale.getDefault()).getString(values[1]))
-                .append("!");
+    private static String createMessage(String... values) {
 
-        System.out.println(message);
+        return ResourceBundle.getBundle(resourceBundle, Locale.getDefault()).getString(values[0]) +
+                ", " +
+                ResourceBundle.getBundle(resourceBundle, Locale.getDefault()).getString(values[1]) +
+                "!";
     }
 }

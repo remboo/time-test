@@ -6,6 +6,6 @@ public class App {
 
     public static void main( String[] args ) {
         Calendar date = Calendar.getInstance();
-        MessageCreator.createWelcomeMessage(date.get(Calendar.HOUR_OF_DAY));
+        System.out.println(MessageCreator.createWelcomeMessage(date.get(Calendar.HOUR_OF_DAY)));
     }
 }
