@@ -10,126 +10,135 @@ import static org.junit.Assert.*;
 
 public class MessageCreatorTest {
     private String language;
+    private String realMessage;
+    private String sampleMessage;
 
     private EnumMap<TimeManager.Time, String> welcomeEng;
     private EnumMap<TimeManager.Time, String> welcomeRus;
 
+    private String getSampleMessage(TimeManager.Time time) {
+        if (language.equals("en"))
+            return welcomeEng.get(time);
+        else if (language.equals("ru"))
+            return welcomeRus.get(time);
+        else
+            return null;
+    }
+
     @Before
     public void init() {
+        String worldEng = "World!";
+        String worldRus = "Мир!";
+
+        language = Locale.getDefault().getLanguage();
         welcomeEng = new EnumMap<>(TimeManager.Time.class);
         welcomeRus = new EnumMap<>(TimeManager.Time.class);
 
-        for (int i = 0; i < TimeManager.Time.values().length; i++) {
-            TimeManager.Time time = TimeManager.Time.values()[i];
-            welcomeEng.put(time, "Good " + time.toString().toLowerCase() + ", World!");
+        welcomeEng.put(TimeManager.Time.MORNING, "Good morning, " + worldEng);
+        welcomeEng.put(TimeManager.Time.DAY, "Good day, " + worldEng);
+        welcomeEng.put(TimeManager.Time.EVENING, "Good evening, " + worldEng);
+        welcomeEng.put(TimeManager.Time.NIGHT, "Good night, " + worldEng);
 
-            createWelcomeMessagesRuList(time);
-        }
-
-
-        language = Locale.getDefault().getLanguage();
+        welcomeRus.put(TimeManager.Time.MORNING, "Доброе утро, " + worldRus);
+        welcomeRus.put(TimeManager.Time.DAY, "Добрый день, " + worldRus);
+        welcomeRus.put(TimeManager.Time.MORNING, "Добрый вечер, " + worldRus);
+        welcomeRus.put(TimeManager.Time.MORNING, "Доброй ночи, " + worldRus);
     }
 
-    private void createWelcomeMessagesRuList(TimeManager.Time time) {
+    @Test
+    public void morningTest6AM() {
+        realMessage = MessageCreator.createWelcomeMessage(6);
+        sampleMessage = getSampleMessage(TimeManager.Time.MORNING);
 
-        switch (time) {
-            case MORNING:
-                welcomeRus.put(time, "Доброе утро, Мир!");
-                break;
-            case DAY:
-                welcomeRus.put(time, "Добрый день, Мир!");
-                break;
-            case EVENING:
-                welcomeRus.put(time, "Добрый вечер, Мир!");
-                break;
-            case NIGHT:
-                welcomeRus.put(time, "Доброй ночи, Мир!");
-                break;
-        }
+        assertEquals(realMessage, sampleMessage);
+    }
+
+    @Test
+    public void morningTest7AM() {
+        realMessage = MessageCreator.createWelcomeMessage(7);
+        sampleMessage = getSampleMessage(TimeManager.Time.MORNING);
+
+        assertEquals(realMessage, sampleMessage);
+    }
+
+    @Test
+    public void morningTest8AM() {
+        realMessage = MessageCreator.createWelcomeMessage(8);
+        sampleMessage = getSampleMessage(TimeManager.Time.MORNING);
+
+        assertEquals(realMessage, sampleMessage);
+    }
+
+    @Test
+    public void dayTest9AM() {
+        realMessage = MessageCreator.createWelcomeMessage(9);
+        sampleMessage = getSampleMessage(TimeManager.Time.DAY);
+
+        assertEquals(realMessage, sampleMessage);
+    }
+
+    @Test
+    public void dayTest3PM() {
+        realMessage = MessageCreator.createWelcomeMessage(15);
+        sampleMessage = getSampleMessage(TimeManager.Time.DAY);
+
+        assertEquals(realMessage, sampleMessage);
+    }
+
+    @Test
+    public void dayTest6PM() {
+        realMessage = MessageCreator.createWelcomeMessage(18);
+        sampleMessage = getSampleMessage(TimeManager.Time.DAY);
+
+        assertEquals(realMessage, sampleMessage);
     }
 
 
     @Test
-    public void morningMessageTest() {
-        String message;
+    public void eveningTest7PM() {
+        realMessage = MessageCreator.createWelcomeMessage(19);
+        sampleMessage = getSampleMessage(TimeManager.Time.EVENING);
 
-        for (int i = 6; i < 9; i++) {
-            message = MessageCreator.createWelcomeMessage(i);
-
-            switch (language) {
-                case "en":
-                    assertEquals(welcomeEng.get(TimeManager.Time.MORNING), message);
-                    break;
-                case "ru":
-                    assertEquals(welcomeRus.get(TimeManager.Time.MORNING), message);
-                    break;
-                default:
-                    break;
-            }
-        }
+        assertEquals(realMessage, sampleMessage);
     }
 
     @Test
-    public void dayMessageTest() {
-        String message;
+    public void eveningTest8PM() {
+        realMessage = MessageCreator.createWelcomeMessage(20);
+        sampleMessage = getSampleMessage(TimeManager.Time.EVENING);
 
-        for (int i = 9; i < 19; i++) {
-            message = MessageCreator.createWelcomeMessage(i);
-
-            switch (language) {
-                case "en":
-                    assertEquals(welcomeEng.get(TimeManager.Time.DAY), message);
-                    break;
-                case "ru":
-                    assertEquals(welcomeRus.get(TimeManager.Time.DAY), message);
-                    break;
-                default:
-                    break;
-            }
-        }
+        assertEquals(realMessage, sampleMessage);
     }
 
     @Test
-    public void eveningMessageTest() {
-        String message;
+    public void eveningTest10PM() {
+        realMessage = MessageCreator.createWelcomeMessage(22);
+        sampleMessage = getSampleMessage(TimeManager.Time.EVENING);
 
-        for (int i = 19; i < 23; i++) {
-            message = MessageCreator.createWelcomeMessage(i);
-
-            switch (language) {
-                case "en":
-                    assertEquals(welcomeEng.get(TimeManager.Time.EVENING), message);
-                    break;
-                case "ru":
-                    assertEquals(welcomeRus.get(TimeManager.Time.EVENING), message);
-                    break;
-                default:
-                    break;
-            }
-        }
+        assertEquals(realMessage, sampleMessage);
     }
 
     @Test
-    public void nightMessageTest() {
-        String message;
+    public void nightTest11PM() {
+        realMessage = MessageCreator.createWelcomeMessage(23);
+        sampleMessage = getSampleMessage(TimeManager.Time.NIGHT);
 
-        for (int i = 0; i < 24; i++) {
+        assertEquals(realMessage, sampleMessage);
+    }
 
-            if (!(i >= 0 && i < 6) || i != 23)
-                continue;
+    @Test
+    public void nightTest0AM() {
+        realMessage = MessageCreator.createWelcomeMessage(0);
+        sampleMessage = getSampleMessage(TimeManager.Time.NIGHT);
 
-            message = MessageCreator.createWelcomeMessage(i);
+        assertEquals(realMessage, sampleMessage);
+    }
 
-            switch (language) {
-                case "en":
-                    assertEquals(welcomeEng.get(TimeManager.Time.NIGHT), message);
-                    break;
-                case "ru":
-                    assertEquals(welcomeRus.get(TimeManager.Time.NIGHT), message);
-                    break;
-                default:
-                    break;
-            }
-        }
+    @Test
+    public void nightTest5AM() {
+        realMessage = MessageCreator.createWelcomeMessage(5);
+        sampleMessage = getSampleMessage(TimeManager.Time.NIGHT);
+
+        assertEquals(realMessage, sampleMessage);
     }
 }

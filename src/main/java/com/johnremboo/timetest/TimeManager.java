@@ -4,16 +4,6 @@ package com.johnremboo.timetest;
 class TimeManager {
 
     /**
-     * Detects whether the current time is hour valid
-     *
-     * @param hour - current hour (from 0 to 24)
-     * @return - true if time is valid, else - false
-     */
-    static boolean isTimeValid(int hour) {
-        return !(hour < 0 || hour > 23);
-    }
-
-    /**
      * Gets the current time period depending on hour
      *
      * @param hour - current hour (from 0 to 24)

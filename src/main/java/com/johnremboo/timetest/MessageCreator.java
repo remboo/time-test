@@ -26,12 +26,13 @@ class MessageCreator {
      * @param hour - input hour value
      */
     static String createWelcomeMessage(int hour) {
-        if (!TimeManager.isTimeValid(hour)) {
+        String time = TimeManager.getTimeName(hour);
+
+        if (time == null) {
             logger.error("Invalid hour. Value: " + hour + " Valid values: from 0 to 23");
             return null;
         }
 
-        String time = TimeManager.getTimeName(hour);
         String[] params = {time, "world"};
         return createMessage(params);
     }
